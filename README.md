@@ -13,6 +13,6 @@ This is a simple project regarding employee management system
 
 # Few Suggestion before Run the application
 
-First create Database and Table in your Workbench
+ First create Database and Table in your Workbench
 
-After that apply your username and password in application.properties and run the application
+ After that apply your username and password in application.properties and run the application
