@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+    <style>
+        body {
+            background-image: url(indus.jpg);
+        }
+
+        .Registration {
+            border: 10px solid blue;
+            width: 500px;
+            padding: 30px;
+            margin: 50px 100px;
+            background-color: lightgrey;
+        }
+
+        .Deletion {
+            border: 10px solid blue;
+            width: 400px;
+            padding: 30px;
+            margin: 50px 200px;
+            background-color: lightgrey;
+        }
+
+        .container {
+            display: flex;
+
+        }
+
+        h1 {
+            margin: 50px auto;
+            width: 500px;
+            font-size: 50px;
+            padding: 3px;
+            color: red;
+            border: 5px solid black;
+            background-color: aquamarine;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #ADD {
+            background-color: lightsalmon;
+        }
+
+        #SHOW {
+            background-color: lightsalmon;
+        }
+
+        #createMessage {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+        #deleteMessage {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>SAGAR INDUSTRIES</h1>
+    <div class="container">
+        <div class="Registration">
+            <h2>Employee Registration Form</h2>
+            <!-- Add Employee Form -->
+            <form id="add">
+
+                <div>
+                    <label for="employeeid">EmpID :</label>
+                    <input type="number" id="employeeid" name="empid" placeholder="Enter ID">
+                </div><br>
+                <div>
+                    <label for="employeename">NAME :</label>
+                    <input type="text" id="employeename" name="name" placeholder="Enter name">
+                </div><br>
+                <div>
+                    <label for="employeephone">PHONE :</label>
+                    <input type="number" id="employeephone" name="phone" placeholder="Enter phone">
+                </div><br>
+                <div>
+                    <button type="submit" id="ADD">ADD</button>
+                </div><br><br>
+            </form>
+            <div id="createMessage"></div>
+        </div>
+        <div class="Deletion">
+            <h2>Employee Deletion Form</h2>
+            <!-- Delete Employee Form -->
+            <form id="delete">
+
+                <div>
+                    <label for="empdelete">EmpID :</label>
+                    <input type="number" id="empdelete" name="empid" placeholder="Enter ID">
+                </div><br>
+                <div>
+                    <button type="submit" id="SHOW">DELETE</button>
+                </div>
+            </form>
+            <div id="deleteMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        
+        document.getElementById('add').onsubmit = async function (event) {
+
+            event.preventDefault();
+            const empid = document.getElementById('employeeid').value;
+            const name = document.getElementById('employeename').value;
+            const phone = document.getElementById('employeephone').value;
+            try {
+                const response = await fetch(`/emp/add?empid=${empid}&name=${name}&phone=${phone}`, {
+                    method: 'POST'
+                });
+                const result = await response.text();
+                document.getElementById('createMessage').textContent = result;
+                document.getElementById('createMessage').style.color = response.status === 200 ? "green" : "red"; // Green for success, red for error
+                document.getElementById('add').reset(); // Reset the form fields
+            }
+            catch (error) {
+                alert("An error occurred while submitting the form. Please try again.");
+                console.error("Error:", error);
+            }
+
+        };
+
+        document.getElementById('delete').onsubmit = async function (event) {
+
+            event.preventDefault();
+            const empid = document.getElementById('empdelete').value;
+            try {
+                const response = await fetch(`/emp/delete?empid=${empid}`, {
+                    method: 'GET'
+                });
+                const result = await response.text();
+                document.getElementById('deleteMessage').textContent = result;
+                document.getElementById('deleteMessage').style.color = response.status === 200 ? "green" : "red"; // Green for success, red for error
+                document.getElementById('delete').reset(); // Reset the form fields
+            }
+
+            catch (error) {
+                alert("An error occurred while submitting the form. Please try again.");
+                console.error("Error:", error);
+            }
+        };
+
+
+    </script>
+</body>
+
+</html>
