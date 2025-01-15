@@ -11,6 +11,8 @@ This is a simple project regarding employee management system
 - JS
 - MySQL
 
-# First create Database and Table in your Workbench
+# Few Suggestion before Run the application
 
-# After that apply your username and password in application.properties and run the application
+First create Database and Table in your Workbench
+
+After that apply your username and password in application.properties and run the application
