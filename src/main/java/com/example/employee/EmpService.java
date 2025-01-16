@@ -10,7 +10,7 @@ public class EmpService {
     private EmpRepository repository;
 
     public String addEmployee(String empid, String name, String phone) {
-        // Check if employee with the given empid already exists
+    
         if (repository.existsByEmpid(empid)) {
             return "Employee with this ID already exists !";
         }
